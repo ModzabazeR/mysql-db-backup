@@ -19,8 +19,11 @@ date_format = '%Y-%m-%d_%H-%M-%S'
 # every 1 hour
 BACKUP_INTERVAL = 60 * 60
 
-# calculate the hash of the latest backup file
-previous_backup_content = open(f"{backup_dir}/latest_backup.sql", 'r').read()
+# create backup directory if it doesn't exist
+backup_file_path = f"{backup_dir}/latest_backup.sql"
+if not os.path.exists(backup_file_path):
+    open(backup_file_path, 'w').close()
+previous_backup_content = open(backup_file_path, 'r').read()
 
 while True:
     # get current time
